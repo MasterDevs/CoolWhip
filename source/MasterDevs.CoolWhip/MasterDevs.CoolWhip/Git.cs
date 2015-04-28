@@ -57,7 +57,7 @@ namespace MasterDevs.CoolWhip
             using (var repo = new Repository(repoPath))
             {
                 var tag_match = repo.Tags
-                    .Select(t => _tagSearch.Match(t.Name))
+                    .Select(t => _search.Match(t.Name))
                     .Where(m => m.Success)
                     .LastOrDefault();
 
