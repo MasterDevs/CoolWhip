@@ -14,8 +14,9 @@ namespace MasterDevs.CoolWhip
         /// Gets the latest tag name from the local git repository
         /// </summary>
         /// <param name="csprojPath">Path to the project file. This method will walk up from here looking for the root git folder</param>
+        /// <param name="versionRegex">Optional regex used to pull the version from the tag. If none is specified, (\d.\d.\d) is used.</param>
         /// <returns>null if there's an error or no tag is found, otherwise just the tag is returned</returns>
-        public static string GetLatestTag(string csprojPath)
+        public static string GetLatestTag(string csprojPath, string versionRegex = null)
         {
             if (!File.Exists(csprojPath)) return null;
 
@@ -27,7 +28,9 @@ namespace MasterDevs.CoolWhip
 
             if (null == gitRoot) return null;
 
-            return GetLatestReleaseTag(gitRoot);
+            var regex = string.IsNullOrEmpty(versionRegex) ? _tagSearch : new Regex(versionRegex, RegexOptions.Compiled);
+
+            return GetLatestReleaseTag(gitRoot, regex);
         }
 
         private static string FindGitRoot(DirectoryInfo folder)
@@ -49,7 +52,7 @@ namespace MasterDevs.CoolWhip
             return null;
         }
 
-        private static string GetLatestReleaseTag(string repoPath)
+        private static string GetLatestReleaseTag(string repoPath, Regex _search)
         {
             using (var repo = new Repository(repoPath))
             {
