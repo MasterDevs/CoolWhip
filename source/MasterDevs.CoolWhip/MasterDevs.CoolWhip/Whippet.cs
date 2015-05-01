@@ -21,7 +21,8 @@ namespace MasterDevs.CoolWhip
 
         private string GetAssemblyVersion()
         {
-            return string.Format(@"[assembly: AssemblyVersion(""{0}"")]", Version ?? "0.0.0.0");
+            return string.Format(@"[assembly: System.Reflection.AssemblyVersion(""{0}"")]", 
+                Version ?? "0.0.0.0");
         }   
     }
 }
