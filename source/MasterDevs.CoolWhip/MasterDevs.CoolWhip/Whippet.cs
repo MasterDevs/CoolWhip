@@ -7,22 +7,25 @@ namespace MasterDevs.CoolWhip
     public class Whippet : Task
     {
         [Required]
-        public string Version { get; set; }
+        public string TempAssemblyFile { get; set; }
 
         [Required]
-        public string TempAssemblyFile { get; set; }
+        public string Version { get; set; }
 
         public override bool Execute()
         {
-            File.WriteAllText(TempAssemblyFile, GetAssemblyVersion());
-            
-            return true;
-        }           
+            try
+            {
+                var assemblyFileContent = string.Format(@"[assembly: System.Reflection.AssemblyVersion(""{0}"")]", Version ?? "0.0.0.0");
+                File.WriteAllText(TempAssemblyFile, assemblyFileContent);
 
-        private string GetAssemblyVersion()
-        {
-            return string.Format(@"[assembly: System.Reflection.AssemblyVersion(""{0}"")]", 
-                Version ?? "0.0.0.0");
-        }   
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Log.LogErrorFromException(ex);
+                return false;
+            }
+        }
     }
 }
