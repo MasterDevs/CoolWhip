@@ -4,7 +4,7 @@ using System.IO;
 
 namespace MasterDevs.CoolWhip
 {
-    public class Whippet : Task
+    public class Whippit : Task
     {
         [Required]
         public string TempAssemblyFile { get; set; }
