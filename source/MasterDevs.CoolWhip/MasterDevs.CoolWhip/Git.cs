@@ -8,7 +8,7 @@ namespace MasterDevs.CoolWhip
 {
     public static class Git
     {
-        private static readonly Regex _tagSearch = new Regex(@"(\d.\d.\d)", RegexOptions.Compiled);
+        private static readonly Regex _tagSearch = new Regex(@"(\d+.\d+.\d+)", RegexOptions.Compiled);
 
         /// <summary>
         /// Gets the latest tag name from the local git repository
