@@ -1,4 +1,5 @@
 ﻿using Octokit;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -29,11 +30,11 @@ namespace MasterDevs.CoolWhip
                 var latestTag = tags
                     .Select(t => versionRegex.Match(t.Name))
                     .Where(m => m.Success)
-                    .Select(m => m.Groups[0].Value)
+                    .Select(m => new Version(m.Groups[0].Value))
                     .OrderByDescending(t => t)
                     .FirstOrDefault();
 
-                return latestTag;
+                return latestTag?.ToString();
             }
             catch { }
 
