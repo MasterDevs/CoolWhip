@@ -1,6 +1,8 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using System.IO;
+using System;
+using System.Text.RegularExpressions;
 
 namespace MasterDevs.CoolWhip
 {
@@ -31,7 +33,7 @@ namespace MasterDevs.CoolWhip
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Log.LogErrorFromException(ex);
                 return false;
@@ -39,7 +41,8 @@ namespace MasterDevs.CoolWhip
         }
 
         private static string _LastGithubVersion;
-        private void RefreshVersion()
+
+        public void RefreshVersion()
         {
             if (!string.IsNullOrEmpty(Version)) return;
 
@@ -51,8 +54,32 @@ namespace MasterDevs.CoolWhip
 
             Version = _LastGithubVersion = Git.GetLatestReleaseFromGithub(Owner, Repo);
 
-            if (string.IsNullOrEmpty(_LastGithubVersion))
-                Version = _LastGithubVersion = "0.0.0.0";
+            //-- If we can't get a version from Git (working offline) get the version from the file
+            if (string.IsNullOrEmpty(Version))
+            {
+                Version = TryGetVersionFromFile(TempAssemblyFile) ?? "0.0.0.0";
+            }
+        }
+
+        private static string TryGetVersionFromFile(string fileName)
+        {
+            try
+            {
+                var fileBody = File.ReadAllText(fileName);
+
+                if (!string.IsNullOrEmpty(fileBody))
+                {
+                    var regex = new Regex(@"\[assembly:\s+AssemblyVersion\(""(\d+.\d+.\d+(.[\d+])?)""\)]", RegexOptions.Compiled | RegexOptions.Multiline);
+
+                    var match = regex.Match(fileBody);
+
+                    if (match.Success)
+                        return match.Groups[1].Value;
+                }
+            }
+            catch { }
+
+            return null;
         }
     }
 }
