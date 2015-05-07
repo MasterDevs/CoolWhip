@@ -3,12 +3,20 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Build.Utilities;
 
 namespace MasterDevs.CoolWhip
 {
-    public static class Git
+    public class Git
     {
-        private static readonly Regex _tagSearch = new Regex(@"(\d+.\d+.\d+(.[\d+])?)", RegexOptions.Compiled);
+        private TaskLoggingHelper _log;
+
+        public Git() : this(null) { }
+        public Git(TaskLoggingHelper log)
+        {
+            _log = log;
+        }
+
 
         /// <summary>
         /// Gets the latest tag name from the specified repo
@@ -18,11 +26,11 @@ namespace MasterDevs.CoolWhip
         /// <param name="csprojPath">Path to the project file. This method will walk up from here looking for the root git folder</param>
         /// <param name="versionRegex">Optional regex used to pull the version from the tag. If none is specified, (\d.\d.\d) is used.</param>
         /// <returns>null if there's an error or no tag is found, otherwise just the tag is returned</returns>
-        public static async Task<string> GetLatestReleaseFromGithubAsync(string owner, string repo, Regex versionRegex = null)
+        public async Task<string> GetLatestReleaseFromGithubAsync(string owner, string repo, Regex versionRegex = null)
         {
             try
             {
-                versionRegex = versionRegex ?? _tagSearch;
+                versionRegex = versionRegex ?? RegHelpers.TagSearch;
 
                 var client = new GitHubClient(new ProductHeaderValue("CoolWhip"));
                 var releases = await client.Release.GetAll(owner, repo);
@@ -36,12 +44,14 @@ namespace MasterDevs.CoolWhip
 
                 return latestTag?.ToString();
             }
-            catch { }
+            catch (Exception exp) {
+                _log?.LogWarningFromException(exp);
+            }
 
             return null;
         }
 
-        public static string GetLatestReleaseFromGithub(string owner, string repo, Regex versionRegex = null)
+        public string GetLatestReleaseFromGithub(string owner, string repo, Regex versionRegex = null)
         {
             var t = GetLatestReleaseFromGithubAsync(owner, repo, versionRegex);
 

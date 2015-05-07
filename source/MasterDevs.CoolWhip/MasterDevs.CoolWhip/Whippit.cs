@@ -2,12 +2,18 @@
 using Microsoft.Build.Utilities;
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
 
 namespace MasterDevs.CoolWhip
 {
     public class Whippit : Task
     {
+        private readonly Git _git;
+
+        public Whippit()
+        {
+            _git = new Git(Log);
+        }
+
         [Required]
         public string TempAssemblyFile { get; set; }
 
@@ -52,7 +58,7 @@ namespace MasterDevs.CoolWhip
             }
             else
             {
-                Version = Git.GetLatestReleaseFromGithub(Owner, Repo);
+                Version = _git.GetLatestReleaseFromGithub(Owner, Repo);
             }
         }
 
@@ -64,9 +70,7 @@ namespace MasterDevs.CoolWhip
 
                 if (!string.IsNullOrEmpty(fileBody))
                 {
-                    var regex = new Regex(@"\[assembly:\s+AssemblyVersion\(""(\d+.\d+.\d+(.[\d+])?)""\)]", RegexOptions.Compiled | RegexOptions.Multiline);
-
-                    var match = regex.Match(fileBody);
+                    var match = RegHelpers.GetAssemblyVersion.Match(fileBody);
 
                     if (match.Success)
                         return match.Groups[1].Value;
