@@ -25,7 +25,7 @@ namespace MasterDevs.CoolWhip
         [Required]
         public string Repo { get; set; }
 
-        public bool UseLocal { get; set; }
+        public bool UseLatestGitRelease { get; set; }
 
         public override bool Execute()
         {
@@ -52,13 +52,13 @@ namespace MasterDevs.CoolWhip
         {
             if (!string.IsNullOrEmpty(Version)) return;
 
-            if (UseLocal)
+            if (UseLatestGitRelease)
             {
-                Version = TryGetVersionFromFile(TempAssemblyFile) ?? "0.0.0.0";
+                Version = _git.GetLatestReleaseFromGithub(Owner, Repo) ?? "0.0.0.0";
             }
             else
             {
-                Version = _git.GetLatestReleaseFromGithub(Owner, Repo);
+                Version = TryGetVersionFromFile(TempAssemblyFile) ?? "0.0.0.0";
             }
         }
 
