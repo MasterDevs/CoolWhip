@@ -1,7 +1,7 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using System.IO;
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace MasterDevs.CoolWhip
@@ -19,11 +19,13 @@ namespace MasterDevs.CoolWhip
         [Required]
         public string Repo { get; set; }
 
+        public bool UseLocal { get; set; }
+
         public override bool Execute()
         {
             try
             {
-                RefreshVersion();
+                UpdateCorrectVersion();
 
                 var assemblyBody = string.Format(@"
 [assembly: System.Reflection.AssemblyVersion(""{0}"")]
@@ -40,24 +42,17 @@ namespace MasterDevs.CoolWhip
             }
         }
 
-        private static string _LastGithubVersion;
-
-        public void RefreshVersion()
+        public void UpdateCorrectVersion()
         {
             if (!string.IsNullOrEmpty(Version)) return;
 
-            if (!string.IsNullOrEmpty(_LastGithubVersion))
-            {
-                Version = _LastGithubVersion;
-                return;
-            }
-
-            Version = _LastGithubVersion = Git.GetLatestReleaseFromGithub(Owner, Repo);
-
-            //-- If we can't get a version from Git (working offline) get the version from the file
-            if (string.IsNullOrEmpty(Version))
+            if (UseLocal)
             {
                 Version = TryGetVersionFromFile(TempAssemblyFile) ?? "0.0.0.0";
+            }
+            else
+            {
+                Version = Git.GetLatestReleaseFromGithub(Owner, Repo);
             }
         }
 
