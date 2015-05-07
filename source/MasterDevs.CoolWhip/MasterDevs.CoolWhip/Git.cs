@@ -25,10 +25,10 @@ namespace MasterDevs.CoolWhip
                 versionRegex = versionRegex ?? _tagSearch;
 
                 var client = new GitHubClient(new ProductHeaderValue("CoolWhip"));
-                var tags = await client.Repository.GetAllTags(owner, repo);
+                var releases = await client.Release.GetAll(owner, repo);
 
-                var latestTag = tags
-                    .Select(t => versionRegex.Match(t.Name))
+                var latestTag = releases
+                    .Select(t => versionRegex.Match(t.TagName))
                     .Where(m => m.Success)
                     .Select(m => new Version(m.Groups[0].Value))
                     .OrderByDescending(t => t)
