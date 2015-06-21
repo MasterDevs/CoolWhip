@@ -49,9 +49,6 @@
     </None>
     <None Include="NugetPackage\tools\FindGitRoot.ps1" />
     <None Include="NugetPackage\tools\install.ps1" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="AfterBuild">
