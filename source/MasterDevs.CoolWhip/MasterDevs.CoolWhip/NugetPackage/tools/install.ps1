@@ -5,42 +5,47 @@
 
 param($installPath, $toolsPath, $package, $project)
 
-#Bring in some helpers
+#-- Bring in some helpers
 . "$($toolsPath)\FindGitRoot.ps1"
-
-
-#TODOs -> Nuspec File
-
 
 
 $packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
-
-Write-Host $project.Name -ForegroundColor DarkYellow
-
-
+$nuspecTemplatePath = Join-Path $packagePath "content\nuspecTemplate.txt"
+$nuspectOutputPath = Join-Path $projectPath "$($project.Name).nuspec"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
 $appVeyorOutputPath = Join-Path $gitRoot "appveyor.yml"
 $appVeyorTemplatePath = Join-Path $packagePath "content\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
 $fullProjectOutputPath = Join-Path $projectPath (Get-Project).ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value
-
-
-#Replace Artificat Output Paths
 $relativeProjectOutputPath = $fullProjectOutputPath.Replace($solutionFolder, "")
+
+#-- Ensure we can write everything we need
+
+if([string]::IsNullOrEmpty($gitRoot)) {
+	throw "This project is not using git and therefore this project can not be whipped"
+}
+
+if(Test-Path $appVeyorOutputPath) {
+	throw "appveyor.yml exists. To install cool-whip delete appveyor.yml from your repos root directory"
+}
+
+if(Test-Path $nuspectOutputPath){
+	throw "$($project.Name).nuspec file already exists. To install cool-whip please delete $($project.Name).nuspec from your project files directory."
+}
+
+#-- Replace Templated items in AppVeyor.yml template
 $appVeyorContent = $appVeyorContent.Replace("{{relateProjectOutputPath}}", $relativeProjectOutputPath)
 $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
-
-#Replace AssemblyInfo path
 $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
 
-#Write AppVeyor file (if it doesn't exist)
-if(Test-Path $appVeyorOutputPath) {
-	Write-Host "Not overwriting File Exists!" -ForegroundColor Red
-	Write-Error "Could not overwrite file"
-}
-else {
-	Set-Content $appVeyorOutputPath $appVeyorContent
-	Write-Host "Created " $appVeyorOutputPath -ForegroundColor DarkCyan
-}
+
+#-- Write the appveyor.yml 
+Set-Content $appVeyorOutputPath $appVeyorContent
+Write-Host "Created " $appVeyorOutputPath
+
+#-- Write the nuspec file for the project
+Copy-Item $nuspecTemplatePath $nuspectOutputPath
+Write-Host "Created " $nuspectOutputPath
+
