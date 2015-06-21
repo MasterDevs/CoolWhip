@@ -27,12 +27,14 @@ assembly_info:
   assembly_file_version: $(BuildVersion)
   assembly_informational_version: $(BuildVersion)
 nuget:
+  account_feed: true		
+  project_feed: true		
+before_build:		
+- nuget restore 'source\MasterDevs.CoolWhip.sln'		
+build:
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
-artifacts:
-- path: '\MasterDevs.CoolWhip\bin\Debug\'
-  name: MasterDevs.CoolWhip
 deploy:
 - provider: GitHub
   auth_token:
