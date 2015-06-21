@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata minClientVersion="2.8">
+    <id>CoolWhip</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.githubusercontent.com/MasterDevs/CoolWhip/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/MasterDevs/CoolWhip</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2015</copyright>
+    <tags>nuget AppVeyor</tags>
+    <developmentDependency>true</developmentDependency>
+  </metadata>
+</package>

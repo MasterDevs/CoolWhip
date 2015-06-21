@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MasterDevs.CoolWhip")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The coolest way to whip out NuGet releases from GitHub and AppVeyor")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("MasterDevs")]
 [assembly: AssemblyProduct("MasterDevs.CoolWhip")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
