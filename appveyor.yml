@@ -32,7 +32,7 @@ nuget:
 before_build:
 - nuget restore 'source\MasterDevs.CoolWhip.sln'
 build:
-  project: 'source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln'
+  project: 'source\MasterDevs.CoolWhip.sln'
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
