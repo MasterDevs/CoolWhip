@@ -30,7 +30,7 @@ nuget:
   account_feed: true
   project_feed: true
 before_build:
-- nuget restore 'source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln'
+- nuget restore 'source\MasterDevs.CoolWhip.sln'
 build:
   project: 'source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln'
   publish_nuget: true
