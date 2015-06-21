@@ -40,14 +40,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NugetPackage\content\nuspecTemplate.txt" />
-    <None Include="NugetPackage\content\appveyor.yml" />
+    <Content Include="NugetPackage\tools\templates\nuspecTemplate.txt" />
+    <None Include="CoolWhipReadMe.md" />
+    <None Include="NugetPackage\content\CoolWhipReadMe.md" />
+    <None Include="NugetPackage\tools\templates\appveyor.yml" />
     <None Include="NugetPackage\CoolWhipDev.nuspec">
       <SubType>Designer</SubType>
     </None>
     <None Include="NugetPackage\tools\FindGitRoot.ps1" />
     <None Include="NugetPackage\tools\install.ps1" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="AfterBuild">
