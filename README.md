@@ -44,5 +44,5 @@ Special Thanks To
 ====================
 
 * [AppVeyor](http://www.appveyor.com/): #1 Continuous Delivery service for Windows
-* Robert Daniel Moore for his [NuGet Test Harness](https://robdmoore.id.au/blog/2013/08/07/test-harness-for-nuget-install-powershell-scripts-init-ps1-install-ps1-uninstall-ps1/) also on [GitHub](https://github.com/robdmoore/NuGetCommandTestHarness)
+* [Robert Daniel Moore](https://github.com/robdmoore) for his [NuGet Test Harness](https://robdmoore.id.au/blog/2013/08/07/test-harness-for-nuget-install-powershell-scripts-init-ps1-install-ps1-uninstall-ps1/) also on [GitHub](https://github.com/robdmoore/NuGetCommandTestHarness)
 * NuGet for being awesome
