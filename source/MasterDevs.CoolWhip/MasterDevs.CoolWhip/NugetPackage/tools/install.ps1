@@ -20,25 +20,29 @@ $appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
 $fullProjectOutputPath = Join-Path $projectPath (Get-Project).ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value
 $relativeProjectOutputPath = $fullProjectOutputPath.Replace($solutionFolder, "")
+$relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "")
 
 #-- Ensure we can write everything we need
 
-if([string]::IsNullOrEmpty($gitRoot)) {
-	throw "This project is not using git and therefore this project can not be whipped"
-}
+Write-Host $relativeSolutionPath -ForegroundColor Red
 
-if(Test-Path $appVeyorOutputPath) {
-	throw "appveyor.yml exists. To install cool-whip delete appveyor.yml from your repos root directory"
-}
-
-if(Test-Path $nuspectOutputPath){
-	throw "$($project.Name).nuspec file already exists. To install cool-whip please delete $($project.Name).nuspec from your project files directory."
-}
+#if([string]::IsNullOrEmpty($gitRoot)) {
+#	throw "This project is not using git and therefore this project can not be whipped"
+#}
+#
+#if(Test-Path $appVeyorOutputPath) {
+#	throw "appveyor.yml exists. To install cool-whip delete appveyor.yml from your repos root directory"
+#}
+#
+#if(Test-Path $nuspectOutputPath){
+#	throw "$($project.Name).nuspec file already exists. To install cool-whip please delete $($project.Name).nuspec from your project files directory."
+#}
 
 #-- Replace Templated items in AppVeyor.yml template
 $appVeyorContent = $appVeyorContent.Replace("{{relateProjectOutputPath}}", $relativeProjectOutputPath)
 $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
 $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
+$appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
 
 
 #-- Write the appveyor.yml 
