@@ -22,7 +22,7 @@ init:
     Write-Host "appveyor_build_version Variable: " $env:appveyor_build_version
 assembly_info:
   patch: true
-  file: '\MasterDevs.CoolWhip\Properties\AssemblyInfo.*'
+  file: '**\AssemblyInfo.*'
   assembly_version: $(BuildVersion)
   assembly_file_version: $(BuildVersion)
   assembly_informational_version: $(BuildVersion)
@@ -30,8 +30,9 @@ nuget:
   account_feed: true
   project_feed: true
 before_build:
-- nuget restore
+- nuget restore \source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
 build:
+  project: \source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
@@ -41,7 +42,7 @@ artifacts:
 deploy:
 - provider: GitHub
   auth_token:
-    secure: lgX4GxJWzuYLXkho9D//SrnbrvVAhjBP/3X/Jmcg6pXZtToG7E1GwBr7vXGSqNAu
+    secure: 6Kc++hw4gNF7gTXwA6MpETVE8+gaMWqaLplEo3i5nLBrpjRKH/QX+yzVf6y1XEjn
   artifact: 
   prerelease: false
   on:
@@ -49,7 +50,7 @@ deploy:
     IsGithubRelease: true
 - provider: NuGet
   api_key:
-    secure: 1kBNjaCsKUKkhgEIMDY4BcaDQrhwrMdWFlyWW2gr7yY/d3O9OmStZFdDOUY61pFo
+    secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
   artifact: 
   on:
     branch: master
