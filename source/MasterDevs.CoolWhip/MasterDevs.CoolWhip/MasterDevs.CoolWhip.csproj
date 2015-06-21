@@ -35,15 +35,25 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="NugetPackage\content\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="appveyor.yml" />
+    <None Include="NugetPackage\content\project.nuspec" />
+    <None Include="NugetPackage\content\appveyor.yml" />
+    <None Include="NugetPackage\CoolWhipDev.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NugetPackage\tools\FindGitRoot.ps1" />
     <None Include="NugetPackage\tools\install.ps1" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <Exec Command="&quot;$(ProjectDir)..\.nuget\NuGet.exe&quot; pack &quot;$(ProjectDir)NugetPackage\CoolWhipDev.nuspec&quot; -OutputDirectory &quot;$(ProjectDir)..&quot; -version $([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
