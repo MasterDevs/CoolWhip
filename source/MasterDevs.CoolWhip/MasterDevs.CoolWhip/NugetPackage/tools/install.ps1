@@ -20,12 +20,9 @@ $appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
 $fullProjectOutputPath = Join-Path $projectPath (Get-Project).ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value
 $relativeProjectOutputPath = $fullProjectOutputPath.Replace($solutionFolder, "")
-$relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "")
+$relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1)
 
 #-- Ensure we can write everything we need
-
-Write-Host $relativeSolutionPath -ForegroundColor Red
-
 #if([string]::IsNullOrEmpty($gitRoot)) {
 #	throw "This project is not using git and therefore this project can not be whipped"
 #}
