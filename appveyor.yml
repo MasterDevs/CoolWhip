@@ -37,8 +37,7 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 artifacts:
-- path: **\*.nupkg
-  name: CoolWhipPackage
+- path: *.nupkg
 deploy:
 - provider: GitHub
   auth_token:
@@ -51,7 +50,7 @@ deploy:
 - provider: NuGet
   api_key:
     secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
-  artifact: CoolWhipPackage
+  artifact: 
   on:
     branch: master
     IsGithubRelease: true
