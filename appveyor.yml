@@ -37,7 +37,7 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 artifacts:
-- path: *.nupkg
+- path: '*.nupkg'
 deploy:
 - provider: GitHub
   auth_token:
