@@ -42,7 +42,6 @@
   <ItemGroup>
     <Content Include="NugetPackage\tools\templates\nuspecTemplate.txt" />
     <None Include="CoolWhipReadMe.md" />
-    <None Include="MasterDevs.CoolWhip.nuspec" />
     <None Include="NugetPackage\content\CoolWhipReadMe.md" />
     <None Include="NugetPackage\CoolWhipDev.nuspec" />
     <None Include="NugetPackage\tools\templates\appveyor.yml" />
