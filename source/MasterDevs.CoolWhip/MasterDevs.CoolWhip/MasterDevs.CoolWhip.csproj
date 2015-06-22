@@ -42,18 +42,17 @@
   <ItemGroup>
     <Content Include="NugetPackage\tools\templates\nuspecTemplate.txt" />
     <None Include="CoolWhipReadMe.md" />
+    <None Include="MasterDevs.CoolWhip.nuspec" />
     <None Include="NugetPackage\content\CoolWhipReadMe.md" />
+    <None Include="NugetPackage\CoolWhipDev.nuspec" />
     <None Include="NugetPackage\tools\templates\appveyor.yml" />
-    <None Include="NugetPackage\CoolWhip.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="NugetPackage\tools\FindGitRoot.ps1" />
     <None Include="NugetPackage\tools\install.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Target Name="AfterBuild">
-    <Exec Command="&quot;$(ProjectDir)..\.nuget\NuGet.exe&quot; pack &quot;$(ProjectDir)NugetPackage\CoolWhipDev.nuspec&quot; -OutputDirectory &quot;$(ProjectDir)..&quot; -version $([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))" />
-  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)NugetPackage\CoolWhipDev.nuspec" -version $([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`)) -OutputDirectory $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
