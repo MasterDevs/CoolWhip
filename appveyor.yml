@@ -31,7 +31,6 @@ nuget:
   project_feed: true		
 before_build:		
 - nuget restore source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
-  MasterDevs.CoolWhip.sln
 build:
   project: source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
   publish_nuget: true
