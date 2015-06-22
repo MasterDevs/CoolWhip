@@ -1,9 +1,17 @@
 <?xml version="1.0"?>
 <package>
-  <metadata>
-    <id>CoolWhipDev</id>
+  <metadata minClientVersion="2.8">
+    <id>CoolWhip</id>
     <version>1.0.0</version>
+    <title>CoolWhip</title>
     <authors>MasterDevs</authors>
-    <description>Description</description>
+    <owners>MasterDevs</owners>
+    <licenseUrl>https://raw.githubusercontent.com/MasterDevs/CoolWhip/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/MasterDevs/CoolWhip</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The coolest way to whip out NuGet releases from GitHub and AppVeyor</description>
+    <copyright>Copyright 2015</copyright>
+    <tags>nuget AppVeyor</tags>
+    <developmentDependency>true</developmentDependency>
   </metadata>
 </package>

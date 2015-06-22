@@ -51,7 +51,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" pack "$(ProjectDir)NugetPackage\CoolWhipDev.nuspec" -version $([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`)) -OutputDirectory $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
+SET NUSPEC="$(ProjectDir)NugetPackage\CoolWhipDev.nuspec"
+SET VERSION=$([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))
+
+%25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
