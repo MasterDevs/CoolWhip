@@ -44,7 +44,7 @@
     <None Include="CoolWhipReadMe.md" />
     <None Include="NugetPackage\content\CoolWhipReadMe.md" />
     <None Include="NugetPackage\tools\templates\appveyor.yml" />
-    <None Include="NugetPackage\CoolWhipDev.nuspec">
+    <None Include="NugetPackage\CoolWhip.nuspec">
       <SubType>Designer</SubType>
     </None>
     <None Include="NugetPackage\tools\FindGitRoot.ps1" />
