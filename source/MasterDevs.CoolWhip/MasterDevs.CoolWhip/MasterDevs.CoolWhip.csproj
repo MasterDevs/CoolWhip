@@ -54,6 +54,7 @@
     <PostBuildEvent>SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
 SET NUSPEC="$(ProjectDir)NugetPackage\CoolWhipDev.nuspec"
 SET VERSION=$([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))
+IF NOT "%25BuildVersion%25" == "" (set VERSION=%25BuildVersion%25) 
 
 %25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
