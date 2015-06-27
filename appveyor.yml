@@ -1,5 +1,4 @@
 # Great reference:  http://www.appveyor.com/docs/appveyor-yml
-#TODO Update release notes in Nuspec from GitHub release notes.
 
 version: 1.0.{build}
 skip_tags: false
@@ -27,12 +26,12 @@ assembly_info:
   assembly_file_version: $(BuildVersion)
   assembly_informational_version: $(BuildVersion)
 nuget:
-  account_feed: true		
-  project_feed: true		
-before_build:		
-- nuget restore source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
+  account_feed: true
+  project_feed: true
+before_build:
+- nuget restore 'source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln'
 build:
-  project: source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln
+  project: 'source\MasterDevs.CoolWhip\MasterDevs.CoolWhip.sln'
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
@@ -42,7 +41,7 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: 6Kc++hw4gNF7gTXwA6MpETVE8+gaMWqaLplEo3i5nLBrpjRKH/QX+yzVf6y1XEjn
-  artifact: 
+  artifact: MasterDevs.CoolWhip
   prerelease: false
   on:
     branch: master
@@ -50,7 +49,7 @@ deploy:
 - provider: NuGet
   api_key:
     secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
-  artifact: 
+  artifact: MasterDevs.CoolWhip
   on:
     branch: master
     IsGithubRelease: true

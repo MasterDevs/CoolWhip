@@ -1,5 +1,4 @@
 ﻿# Great reference:  http://www.appveyor.com/docs/appveyor-yml
-#TODO Update release notes in Nuspec from GitHub release notes.
 
 version: 1.0.{build}
 skip_tags: false
@@ -37,21 +36,21 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 artifacts:
-- path: '{{relateProjectOutputPath}}'
+- path: '{{artifactPath}}'
   name: {{artifactName}}
 deploy:
 - provider: GitHub
   auth_token:
-    secure: 6Kc++hw4gNF7gTXwA6MpETVE8+gaMWqaLplEo3i5nLBrpjRKH/QX+yzVf6y1XEjn
-  artifact: 
+    secure: <replace with your encrypted GitHub token>
+  artifact: {{artifactName}}
   prerelease: false
   on:
     branch: master
     IsGithubRelease: true
 - provider: NuGet
   api_key:
-    secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
-  artifact: 
+    secure: <Replace with your encrypted Nuget.org API token>
+  artifact: {{artifactName}}
   on:
     branch: master
     IsGithubRelease: true

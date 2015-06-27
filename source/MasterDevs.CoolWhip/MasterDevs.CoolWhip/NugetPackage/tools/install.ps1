@@ -18,8 +18,13 @@ $gitRoot = findGitRoot -pathInGit $solutionFolder
 $appVeyorOutputPath = Join-Path $gitRoot "appveyor.yml"
 $appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
-$fullProjectOutputPath = Join-Path $projectPath (Get-Project).ConfigurationManager.ActiveConfiguration.Properties.Item("OutputPath").Value
+
+$releaseConfiguration = ((Get-Project).ConfigurationManager | where {$_.ConfigurationName -eq "Release"})[0]
+
+$fullProjectOutputPath = Join-Path $projectPath $releaseConfiguration.Properties.Item("OutputPath").Value
 $relativeProjectOutputPath = $fullProjectOutputPath.Replace($solutionFolder, "")
+$artifactPath = Join-Path $relativeProjectOutputPath ($project.Name + ".nupkg")
+
 $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1)
 
 #-- Ensure we can write everything we need
@@ -36,7 +41,7 @@ $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1
 #}
 
 #-- Replace Templated items in AppVeyor.yml template
-$appVeyorContent = $appVeyorContent.Replace("{{relateProjectOutputPath}}", $relativeProjectOutputPath)
+$appVeyorContent = $appVeyorContent.Replace("{{artifactPath}}", $artifactPath)
 $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
 $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
@@ -46,9 +51,6 @@ $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutio
 Set-Content $appVeyorOutputPath $appVeyorContent
 Write-Host "Created " $appVeyorOutputPath
 
-#-- Write the nuspec file for the project
+#-- Write the NuSpec file for the project
 Copy-Item $nuspecTemplatePath $nuspectOutputPath
 Write-Host "Created " $nuspectOutputPath
-
-#-- Remove the files that were copied as a result
-
