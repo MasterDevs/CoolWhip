@@ -42,7 +42,7 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: <replace with your encrypted GitHub token>
-  artifact: {{artifactName}}
+  artifact: 
   prerelease: false
   on:
     branch: master
@@ -50,7 +50,7 @@ deploy:
 - provider: NuGet
   api_key:
     secure: <Replace with your encrypted Nuget.org API token>
-  artifact: {{artifactName}}
+  artifact: 
   on:
     branch: master
     IsGithubRelease: true
