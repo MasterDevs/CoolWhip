@@ -27,11 +27,10 @@ Quick Start
 ====================
 
 1. Install CoolWhip `PM> Install-Package CoolWhip`
-2. Encrypt GitHub key
-3. Encrypt NuGet key
-4. Update the appveyor.yaml with the keys from above
-5. Save/commit changes
-6. Link AppVeyor to your repo
+1. [Encrypt GitHub & Nuget key in App Veyor](https://github.com/MasterDevs/CoolWhip/wiki/Encrypting-Data-in-AppVeyor)
+1. [Update the appveyor.yaml](https://github.com/MasterDevs/CoolWhip/wiki/AppVeyor.yml) with the keys from above
+1. Save/commit changes
+1. [Link AppVeyor to your repo](https://github.com/MasterDevs/CoolWhip/wiki/Create-an-AppVeyor-Build)
 
 **[Detailed instructions](https://github.com/MasterDevs/CoolWhip/wiki/Installing-CoolWhip)**
 
