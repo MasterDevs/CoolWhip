@@ -23,11 +23,8 @@ When a GitHub release or git tag is created
     1. Pushed to NuGet
     1. Pushed to [Symbol Source](http://symbolsource.org/)
 
-Getting Started
+Quick Start
 ====================
-
-Overview
--------------------
 
 1. Install CoolWhip `PM> Install-Package CoolWhip`
 2. Encrypt GitHub key
@@ -36,7 +33,7 @@ Overview
 5. Save/commit changes
 6. Link AppVeyor to your repo
 
-
+**[Detailed instructions](https://github.com/MasterDevs/CoolWhip/wiki/Installing-CoolWhip)**
 
 
 
