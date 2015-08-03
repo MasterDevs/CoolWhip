@@ -6,7 +6,7 @@
 param($installPath, $toolsPath, $package, $project)
 
 #-- Bring in some helpers
-. "$($toolsPath)\FindGitRoot.ps1"
+. "$($toolsPath)\GitHelpers.ps1"
 
 
 $packagePath = Join-Path $toolsPath ".."
@@ -18,6 +18,8 @@ $gitRoot = findGitRoot -pathInGit $solutionFolder
 $appVeyorOutputPath = Join-Path $gitRoot "appveyor.yml"
 $appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
+$projectUrl = findProjectUrl
+$projectLicense = findProjectLicense $gitRoot, $projectUrl
 
 $releaseConfiguration = ((Get-Project).ConfigurationManager | where {$_.ConfigurationName -eq "Release"})[0]
 
@@ -45,7 +47,6 @@ $appVeyorContent = $appVeyorContent.Replace("{{artifactPath}}", $artifactPath)
 $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
 $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
-
 
 #-- Write the appveyor.yml 
 Set-Content $appVeyorOutputPath $appVeyorContent

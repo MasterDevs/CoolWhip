@@ -46,7 +46,7 @@
     <None Include="NugetPackage\content\CoolWhipReadMe.md" />
     <None Include="NugetPackage\CoolWhipDev.nuspec" />
     <None Include="NugetPackage\tools\templates\appveyor.yml" />
-    <None Include="NugetPackage\tools\FindGitRoot.ps1" />
+    <None Include="NugetPackage\tools\GitHelpers.ps1" />
     <None Include="NugetPackage\tools\install.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
