@@ -6,11 +6,9 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-	<!--
-    <projectUrl>{{projectUrl}}</projectUrl>
-    <licenseUrl>{{projectLicense}}</licenseUrl>
-    <iconUrl>{{projectIcon}}</iconUrl>
-	-->
+    <!--<projectUrl/>-->
+    <!--<licenseUrl/>-->
+    <!--<iconUrl/>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes></releaseNotes>

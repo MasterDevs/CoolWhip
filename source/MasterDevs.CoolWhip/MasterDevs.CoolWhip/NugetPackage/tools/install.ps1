@@ -49,9 +49,18 @@ $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $pro
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
 
 # Replace Templated items in .nuspec template
-$nuspecContent = $nuspecContent.Replace("{{projectUrl}}", $projectUrl)
-$nuspecContent = $nuspecContent.Replace("{{projectLicense}}", $projectLicense)
-
+if ($projectUrl)
+{
+	$nuspecContent = $nuspecContent.Replace("<!--<projectUrl/>-->", "<projectUrl>" + $projectUrl + "</projectUrl>")
+}
+if ($projectLicense)
+{
+	$nuspecContent = $nuspecContent.Replace("<!--<licenseUrl/>-->", "<licenseUrl>" + $projectLicense + "</licenseUrl>")
+}
+if ($projectIcon)
+{
+	$nuspecContent = $nuspecContent.Replace("<!--<iconUrl/>-->", "<iconUrl>" + $projectIcon + "</iconUrl>")
+}
 #-- Write the appveyor.yml 
 Set-Content $appVeyorOutputPath $appVeyorContent
 Write-Host "Created " $appVeyorOutputPath

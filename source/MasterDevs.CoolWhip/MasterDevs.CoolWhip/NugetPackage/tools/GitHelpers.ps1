@@ -49,3 +49,10 @@ Function findProjectLicense([string]$gitRoot, [string] $projectUrl)
 		$localLicensePath = "" 
 	}
 }
+
+Function RepalceIfNotEmpty ([string]$searchString, [string]$replacement, [string]$content)
+{
+	if ($replacement -eq "") { return $content }
+
+	return $content.Replace("xxx", $replacement)
+}

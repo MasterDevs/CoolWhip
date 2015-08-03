@@ -6,11 +6,9 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-	<!--
     <projectUrl>https://github.com/MasterDevs/CoolWhip</projectUrl>
     <licenseUrl>https://github.com/MasterDevs/CoolWhip/blob/master/LICENSE</licenseUrl>
-    <iconUrl>{{projectIcon}}</iconUrl>
-	-->
+    <!--<iconUrl/>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes></releaseNotes>
