@@ -36,11 +36,12 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 artifacts:
-- path: '**\*.nupkg'
+- path: 
+  name: TestProject
 deploy:
 - provider: GitHub
   auth_token:
-    secure: 6Kc++hw4gNF7gTXwA6MpETVE8+gaMWqaLplEo3i5nLBrpjRKH/QX+yzVf6y1XEjn
+    secure: <replace with your encrypted GitHub token>
   artifact: 
   prerelease: false
   on:
@@ -48,7 +49,7 @@ deploy:
     IsGithubRelease: true
 - provider: NuGet
   api_key:
-    secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
+    secure: <Replace with your encrypted Nuget.org API token>
   artifact: 
   on:
     branch: master

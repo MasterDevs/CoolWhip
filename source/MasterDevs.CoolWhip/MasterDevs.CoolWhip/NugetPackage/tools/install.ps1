@@ -2,24 +2,24 @@
 #https://robdmoore.id.au/blog/2013/08/07/test-harness-for-nuget-install-powershell-scripts-init-ps1-install-ps1-uninstall-ps1/
 # AKA https://github.com/robdmoore/NuGetCommandTestHarness
 
-
 param($installPath, $toolsPath, $package, $project)
 
 #-- Bring in some helpers
 . "$($toolsPath)\GitHelpers.ps1"
 
-
 $packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
-$nuspecTemplatePath = Join-Path $toolsPath "templates\nuspecTemplate.txt"
+$nuspecTemplatePath = Join-Path $toolsPath "templates\nuspecTemplate.xml"
 $nuspectOutputPath = Join-Path $projectPath "$($project.Name).nuspec"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
 $appVeyorOutputPath = Join-Path $gitRoot "appveyor.yml"
 $appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
 $appVeyorContent = Get-Content $appVeyorTemplatePath
+$nuspecContent = Get-Content $nuspecTemplatePath
+
 $projectUrl = findProjectUrl
-$projectLicense = findProjectLicense $gitRoot, $projectUrl
+$projectLicense = findProjectLicense $gitRoot $projectUrl
 
 $releaseConfiguration = ((Get-Project).ConfigurationManager | where {$_.ConfigurationName -eq "Release"})[0]
 
@@ -48,10 +48,14 @@ $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
 $appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
 
+# Replace Templated items in .nuspec template
+$nuspecContent = $nuspecContent.Replace("{{projectUrl}}", $projectUrl)
+$nuspecContent = $nuspecContent.Replace("{{projectLicense}}", $projectLicense)
+
 #-- Write the appveyor.yml 
 Set-Content $appVeyorOutputPath $appVeyorContent
 Write-Host "Created " $appVeyorOutputPath
 
 #-- Write the NuSpec file for the project
-Copy-Item $nuspecTemplatePath $nuspectOutputPath
+Set-Content $nuspectOutputPath $nuspecContent
 Write-Host "Created " $nuspectOutputPath

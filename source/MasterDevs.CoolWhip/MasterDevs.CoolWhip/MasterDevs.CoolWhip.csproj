@@ -42,7 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NugetPackage\tools\templates\nuspecTemplate.txt" />
+    <Content Include="NugetPackage\tools\templates\nuspecTemplate.xml" />
     <None Include="NugetPackage\content\CoolWhipReadMe.md" />
     <None Include="NugetPackage\CoolWhipDev.nuspec" />
     <None Include="NugetPackage\tools\templates\appveyor.yml" />

@@ -37,11 +37,12 @@ Function findProjectLicense([string]$gitRoot, [string] $projectUrl)
 	if ($projectUrl -eq "") { return "" }
 
 	$localLicensePath = $gitRoot + "\LICENSE"
+
 	if (Test-Path $localLicensePath)
 	{
 		$projectLicense = $projectUrl + "/blob/master/LICENSE"
 
-		return 
+		return $projectLicense
 	}
 	else
 	{

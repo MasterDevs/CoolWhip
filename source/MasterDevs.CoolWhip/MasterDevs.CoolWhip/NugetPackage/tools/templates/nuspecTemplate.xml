@@ -7,9 +7,9 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
 	<!--
-    <licenseUrl></licenseUrl>
-    <projectUrl></projectUrl>
-    <iconUrl></iconUrl>
+    <projectUrl>{{projectUrl}}</projectUrl>
+    <licenseUrl>{{projectLicense}}</licenseUrl>
+    <iconUrl>{{projectIcon}}</iconUrl>
 	-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
