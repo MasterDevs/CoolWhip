@@ -10,6 +10,7 @@
     <projectUrl>https://github.com/MasterDevs/CoolWhip</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The coolest way to whip out NuGet releases from GitHub and AppVeyor</description>
+    <releaseNotes />
     <copyright>Copyright 2015</copyright>
     <tags>nuget AppVeyor</tags>
     <developmentDependency>true</developmentDependency>
